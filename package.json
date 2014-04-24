@@ -4,28 +4,16 @@
   "description": "Logos and icons as svg, then possible to export to png",
   "main": "svgtopng.js",
   "dependencies": {
-    "envify": "^1.2.1",
-    "react": "^0.10.0"
-  },
-  "devDependencies": {
-    "browserify": "^3.38.1",
-    "watchify": "^0.6.4",
-    "reactify": "^0.11.0"
+    "jade": "^1.3.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "watchify jsx/index.jsx -o index.js -v -d"
+    "start": "jade -O mypage.json -w templates --out ."
   },
   "repository": {
     "type": "git",
     "url": "https://manshom@bitbucket.org/applicvision/svg-logos.git"
   },
   "author": "Måns Hommerberg",
-  "license": "ISC",
-  "browserify": {
-    "transform": [
-      "reactify",
-      "envify"
-    ]
-  }
+  "license": "ISC"
 }
