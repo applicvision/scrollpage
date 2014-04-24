@@ -1,4 +1,4 @@
-react-scrollpage
+Scrollpage
 ================
 
 A scrolling page to showcase product.
