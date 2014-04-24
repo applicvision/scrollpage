@@ -16,11 +16,6 @@ module.exports = React.createClass({
         }
     },
     render: function () {
-        var style = {
-            backgroundImage: "url(" + this.props.image + ")",
-        };
-        return (
-            <div style={style} className="backgroundimage"/>
-        );
+        return <div className="backgroundimage"/>
     }
 });
