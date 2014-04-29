@@ -6,7 +6,9 @@ var header;
 var sectionLinks;
 var lastSectionLink;
 var icon;
+var sectionHeight;
 var background;
+var shouldParallax;
 
 function scrollHandler () {
     lastScrollY = window.scrollY;
@@ -25,31 +27,41 @@ function update () {
         if (currentSection !== -1) {
             icon.classList.add("small");
             header.classList.add("show");
-            if (lastSectionLink) {
-                lastSectionLink.classList.remove("current");
+            var last = sectionLinks[lastSection];
+            if (last) {
+                last.classList.remove("current");
             }
-            lastSectionLink = sectionLinks[currentSection];
-            lastSectionLink.classList.add("current");
-            history.replaceState(null, null, lastSectionLink.href);
+            var current = sectionLinks[currentSection];
+            if (current) {
+                current.classList.add("current");
+                history.replaceState(null, null, current.href);
+            } else {
+                console.log("strange, current", currentSection);
+            }
         } else {
             history.replaceState(null, null, "#");
             lastSectionLink = null;
         }
         lastSection = currentSection;
     }
-    background.style.webkitTransform = "translateY(" + 0.9 * lastScrollY + "px)";
+    if (shouldParallax) {
+        background.style.webkitTransform = "translate3d(0," + 0.3 * lastScrollY + "px, 0)";
+    }
+    
     isUpdating = false;
 }
 
 function getCurrentSection(scrollOffset) {
-    return Math.floor(Math.abs(scrollOffset) / window.innerHeight) - 1;
+    return Math.floor(Math.abs(scrollOffset + sectionHeight / 3) / sectionHeight) - 1;
 }
 
 window.onload = function () {
-    icon = document.querySelector(".icon");
+    icon = document.querySelector(".iconholder");
     header = document.querySelector(".header");
     sectionLinks = header.querySelectorAll("a");
     background = document.querySelector("img.background");
+    shouldParallax = background.classList.contains("parallax");
+    sectionHeight = document.querySelector("section").clientHeight;
 
     window.onscroll = scrollHandler;
 }

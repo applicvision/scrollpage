@@ -1,5 +1,6 @@
 .background {
     width: 100%;
+    /*height: 1602px;*/
     position: absolute;
     z-index: -1;
 }
@@ -7,23 +8,40 @@
 body {
     padding: 0;
     margin: 0;
+/*    background: url(background.jpg);
+    background-size: cover;
+    background-attachment: fixed;*/
+}
+
+section {
+    height: 600px;
+}
+
+section.first {
+    font-size: 20em;
+    color: white;
+    text-align: center;
 }
 
 section.content {
-    height: 80%;
-    margin: 20% 0;
     background-color: white;
     font-size: 2em;
 }
 
+section.content div {
+    width: 50%;
+    max-width: 400px;
+    max-height: 100%;
+}
+
 .header {
     position: fixed;
-    top: -50px;
+    top: -65px;
     left: 0;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.92);
     color: rgb(64, 0, 120);
-    height: 50px;
+    height: 65px;
     min-width: 980px;
     transition: all 0.5s;
     padding-left: 100px;
@@ -35,4 +53,58 @@ section.content {
 
 .header a.current {
     background-color: green;
+}
+
+.flexcenter {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.iconholder {
+    width:  100%;
+    height: 100%;
+    position: fixed;
+    transition: all 0.5s;
+}
+
+.icon {
+    width: 100%;
+    max-width: 300px;
+    transition: inherit;
+    background-color: white;
+    border-radius: 15px;
+    padding: 2px;
+}
+
+.iconholder.small {
+    padding-top: 0;
+    top: 0px;
+    left: 10px;
+    width: 60px;
+    height: 60px;
+}
+
+.iconholder.small .icon {
+    border-radius: 0;
+    background-color: inherit;
+}
+
+.downarrow {
+  animation-duration: 2s;
+  animation-name: blink;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  from {
+    opacity: 0; 
+  }
+
+  to {
+    opactiy: 100%;
+  }
 }
