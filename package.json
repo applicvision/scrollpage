@@ -1,15 +1,21 @@
 {
-  "name": "svg-logos",
+  "name": "scrollpage",
   "version": "0.0.0",
-  "description": "Logos and icons as svg, then possible to export to png",
-  "main": "svgtopng.js",
+  "description": "Scrollpage building using JSON",
   "dependencies": {
     "jade": "^1.3.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "jade -O mypage.json -w templates --out ."
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Måns Hommerberg",
-  "license": "MIT"
+  "author": "mansom",
+  "license": "MIT",
+  "devDependencies": {
+    "vinyl-source-stream": "^0.1.1",
+    "gulp": "^3.6.2",
+    "browserify": "^3.46.0",
+    "gulp-livereload": "^1.3.1",
+    "gulp-embedlr": "^0.5.2",
+    "gulp-jade": "^0.5.0"
+  }
 }
