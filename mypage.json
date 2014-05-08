@@ -1,5 +1,7 @@
 {
     "name": "My App",
+    "description": "Scrolling is sweet",
+    "image": "icon.png",
     "icon": "icon.png",
     "background": "background.jpg",
     "sections": [

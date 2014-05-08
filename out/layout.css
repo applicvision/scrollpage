@@ -1,54 +1,66 @@
 .background {
     width: 100%;
-    /*height: 1602px;*/
     position: absolute;
     z-index: -1;
+    height: 1602px;
+    background-size: cover;
+}
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
 }
 
 body {
     padding: 0;
     margin: 0;
-/*    background: url(background.jpg);
-    background-size: cover;
-    background-attachment: fixed;*/
 }
 
 section {
-    height: 600px;
+    font-family: arial;
+    position:relative;
+    /*height: 600px;*/
 }
 
 section.first {
-    font-size: 20em;
     color: white;
-    text-align: center;
+    height: 100%;
+    font-size: 2em;
 }
 
 section.content {
     background-color: white;
+    /*height: 85%;*/
+    margin-bottom: 100px;
     font-size: 2em;
 }
 
 section.content div {
     width: 50%;
     max-width: 400px;
-    max-height: 100%;
+}
+
+section.content .section-image {
 }
 
 .header {
     position: fixed;
-    top: -65px;
+    top: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: rgba(255, 255, 255, 0.90);
     color: rgb(64, 0, 120);
     height: 65px;
     min-width: 980px;
-    transition: all 0.5s;
-    padding-left: 100px;
+    z-index: 10;
 }
+
+.header img {
+    height: 50px;
+}
+
 .header.show {
     top: 0px;
-    box-shadow: 0 0 10px 0 black;
 }
 
 .header a.current {
@@ -64,20 +76,8 @@ section.content div {
     justify-content: center;
 }
 
-.iconholder {
-    width:  100%;
-    height: 100%;
-    position: fixed;
-    transition: all 0.5s;
-}
-
 .icon {
-    width: 100%;
-    max-width: 300px;
-    transition: inherit;
-    background-color: white;
-    border-radius: 15px;
-    padding: 2px;
+    height: 50px;
 }
 
 .iconholder.small {
