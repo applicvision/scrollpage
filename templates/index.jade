@@ -18,7 +18,7 @@ html(lang="en")
     section.first  
       .downarrow v
     each aSection in sections
-      section(class="flexcenter content " + (aSection.className || ""), id=aSection.title.toLowerCase())
+      section(class="flexcenter content " + (aSection.className || ""), id=aSection.title.toLowerCase())
           div: img(src=aSection.image)
           div=aSection.text
     script(src="bundle.js")
