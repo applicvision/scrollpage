@@ -1,5 +1,5 @@
 {
-	"name": "My App",
+    "name": "My App",
     "icon": "icon.png",
     "background": "background.jpg",
     "sections": [
@@ -8,6 +8,6 @@
         {"image": "phone3.png", "text": "You wont regret it..", "title":"Regretful"}
     ],
     "options": {
-        //"parallax": "false"
+        "parallax": "false"
     }
 }

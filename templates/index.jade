@@ -8,7 +8,7 @@ html(lang="en")
       //- include ../layout.css
       //- include ../style.css
   body
-    img(class=options.parallax? "background parallax": "background", src="background.jpeg")
+    img(class=options.parallax? "background parallax": "background", src="background.jpg")
     div.header
       each section in sections
         a(href="#" + section.title.toLowerCase())
@@ -21,8 +21,5 @@ html(lang="en")
       section(class="flexcenter content " + (aSection.className || ""), id=aSection.title.toLowerCase())
           div: img(src=aSection.image)
           div=aSection.text
-    script.
-
-
-    script(src="script.js")
+    script(src="bundle.js")
       //- include ../script.js
