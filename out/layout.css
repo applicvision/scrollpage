@@ -14,57 +14,66 @@ html, body {
 body {
     padding: 0;
     margin: 0;
+    background-color: black;
+    font-family: arial;
 }
 
 section {
-    font-family: arial;
     position:relative;
-    /*height: 600px;*/
+    height: 100%;
 }
 
 section.first {
-    color: white;
-    height: 100%;
     font-size: 2em;
 }
 
 section.content {
-    background-color: white;
-    /*height: 85%;*/
-    margin-bottom: 100px;
+    padding: 50px 0;
+    box-sizing: border-box;
     font-size: 2em;
 }
 
-section.content div {
-    width: 50%;
-    max-width: 400px;
+section.content > div {
+    height: 100%;
 }
 
-section.content .section-image {
+section.content > div > div {
+    width: 50%;
+    padding: 0 10px;
+    max-width: 500px;
+}
+
+section .section-image {
+    text-align: center;
+}
+
+section .section-image img{
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .header {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.90);
-    color: rgb(64, 0, 120);
-    height: 65px;
-    min-width: 980px;
-    z-index: 10;
-}
-
-.header img {
-    height: 50px;
+    height: 60px;
+    z-index: 1;
+    display: flex;
 }
 
 .header.show {
     top: 0px;
 }
 
-.header a.current {
-    background-color: green;
+.header .icon {
+    height: 90%;
+    margin: 0 10px;
+}
+
+.header a {
+    font-size: 1.3em;
+    text-decoration: none;
+    padding: 0 10px;
+    line-height: 60px;
 }
 
 .flexcenter {
@@ -76,22 +85,8 @@ section.content .section-image {
     justify-content: center;
 }
 
-.icon {
-    height: 50px;
-}
 
-.iconholder.small {
-    padding-top: 0;
-    top: 0px;
-    left: 10px;
-    width: 60px;
-    height: 60px;
-}
-
-.iconholder.small .icon {
-    border-radius: 0;
-    background-color: inherit;
-}
+/*This is for showing an animated scroll down indicator*/
 
 .downarrow {
   animation-duration: 2s;

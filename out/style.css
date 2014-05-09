@@ -1,3 +1,23 @@
 .background {
     background-image: url(background.jpg);
 }
+
+section.first {
+    color: white;
+}
+
+section.content > div {
+    background-color: white;
+}
+
+.header {
+    background-color: rgba(255, 255, 255, 0.90);
+}
+
+.header a {
+    color: black;
+}
+
+.header a.current {
+    background-color: lightgray;
+}

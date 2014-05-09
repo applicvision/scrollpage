@@ -15,12 +15,13 @@ html(lang="en")
         a(href="#" + section.title.toLowerCase())
           =section.title
     section.first.flexcenter
-      img.image(src=image)
+      .section-image: img.image(src=image)
       .description=name + " " + description
       //- .downarrow v
     each aSection in sections
-      section(class="flexcenter content " + (aSection.className || ""), id=aSection.title.toLowerCase())
-          div.section-image: img(src=aSection.image)
-          div.section-text=aSection.text
+      section(class="content", id=aSection.title.toLowerCase())
+          div(class="flexcenter " + (aSection.className || ""))
+            .section-image: img(src=aSection.image)
+            .section-text=aSection.text
     script(src="bundle.js")
-      //- include ../script.js
+      //- include ../out/bundle.js
