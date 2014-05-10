@@ -1,5 +1,6 @@
 var requestAnimationFrame = require("./requestAnimationFrame");
 var translateY = require("./translateY3d");
+var scrollTo = require("./scrollTo");
 
 var lastScrollY = 0;
 var windowHeight = window.innerHeight;
@@ -30,7 +31,6 @@ function update () {
     if (currentSection !== lastSection) {
         var last = sectionLinks[lastSection];
         if (last) {
-            console.log("removing last");
             last.classList.remove("current");
         }
         if (currentSection !== -1) {
@@ -60,12 +60,39 @@ function getCurrentSection(scrollOffset) {
     return Math.floor(Math.abs(scrollOffset + sectionHeight / 4) / sectionHeight) - 1;
 }
 
+getLinkListener = function (link) {
+    var targetElement = document.querySelector(link.hash);
+    return function (e) {
+        //temporarily deactivate the scroll listener
+        window.onscroll = null;
+
+        //Do not do ordinary anchor action
+        e.preventDefault();
+
+        scrollTo(targetElement, function () {
+            //update the scroll position and update state
+            lastScrollY = window.scrollY;
+            update();
+
+            //Reactivate scroll listener
+            window.onscroll = scrollHandler;
+        });
+    };
+}
+
 window.onload = function () {
+    var i, link;
+
     icon = document.querySelector(".iconholder");
     header = document.querySelector(".header");
     sectionLinks = header.querySelectorAll("a");
     background = document.querySelector(".background");
     shouldParallax = background.classList.contains("parallax");
+
+    for (i = 0; i < sectionLinks.length; i++) {
+        link = sectionLinks[i];
+        link.onclick = getLinkListener(link);
+    }
 
     window.onscroll = scrollHandler;
 };
