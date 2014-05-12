@@ -12,12 +12,15 @@ section.content > div {
 
 .header {
     background-color: rgba(255, 255, 255, 0.90);
+    border-bottom: 1px solid lightgray;
+    color:black;
 }
 
 .header a {
-    color: black;
+    color: inherit;
 }
 
 .header a.current {
-    background-color: lightgray;
+    /*background-color: lightgray;*/
+    font-weight: bold;
 }

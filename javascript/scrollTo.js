@@ -9,7 +9,7 @@ module.exports = function scrollTo(elemOrID, callback) {
     duration = 8 * Math.sqrt(Math.abs(scrollAmount));
 
     function scrollStep(timeStamp) {
-        var timePassed, progress;
+        var timePassed, progress, scrollValue;
         if (!start) {
             start = timeStamp;
             timePassed = 0;
@@ -17,7 +17,8 @@ module.exports = function scrollTo(elemOrID, callback) {
             timePassed = timeStamp - start;
         }
         progress = timePassed / duration;
-        window.scroll(0, startPosition + scrollAmount * progress);
+        scrollValue = scrollAmount * progress
+        window.scroll(0, startPosition + scrollValue);
         if (progress < 1) {
             requestAnimationFrame(scrollStep);
         } else {

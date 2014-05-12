@@ -19,7 +19,7 @@ html(lang="en")
       .description=name + " " + description
       //- .downarrow v
     each aSection in sections
-      section(class="content", id=aSection.title.toLowerCase())
+      section.content(id=aSection.title.toLowerCase())
           div(class="flexcenter " + (aSection.className || ""))
             .section-image: img(src=aSection.image)
             .section-text=aSection.text

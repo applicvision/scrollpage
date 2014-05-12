@@ -3,17 +3,18 @@ var translateY = require("./translateY3d");
 var scrollTo = require("./scrollTo");
 
 var lastScrollY = 0;
-var windowHeight = window.innerHeight;
+var lastWindowHeight = window.innerHeight;
 var lastSection = -1;
 var isUpdating = false;
 var isResizing = false;
 var header;
-var sections;
 var sectionLinks;
+var numberOfSections;
 var lastSectionLink;
 var icon;
 var background;
 var shouldParallax;
+var parallaxConstant = 0.5;
 
 
 
@@ -25,6 +26,15 @@ function scrollHandler () {
     }
 }
 
+function resizeHandler () {
+    var windowHeight = window.innerHeight;
+    if (!isResizing && (windowHeight !== lastWindowHeight)) {
+        lastWindowHeight = windowHeight;
+        requestAnimationFrame(setBackgroundSize);
+        isResizing = true;
+    }
+}
+
 function update () {
     var currentSection = getCurrentSection(lastScrollY);
 
@@ -33,31 +43,24 @@ function update () {
         if (last) {
             last.classList.remove("current");
         }
-        if (currentSection !== -1) {
-            // header.classList.add("show");
-            var current = sectionLinks[currentSection];
-            if (current) {
-                current.classList.add("current");
-                history.replaceState(null, null, current.href);
-            } else {
-                console.log("strange, current", currentSection);
-            }
+        var current = sectionLinks[currentSection];
+        if (current) {
+            current.classList.add("current");
+            history.replaceState(null, null, current.href);
         } else {
             history.replaceState(null, null, "#");
-            lastSectionLink = null;
         }
         lastSection = currentSection;
     }
     if (shouldParallax) {
-        translateY(background, 0.3 * lastScrollY);
+        translateY(background, parallaxConstant * lastScrollY);
     }
     
     isUpdating = false;
 }
 
 function getCurrentSection(scrollOffset) {
-    var sectionHeight = window.innerHeight;
-    return Math.floor(Math.abs(scrollOffset + sectionHeight / 4) / sectionHeight) - 1;
+    return Math.floor(Math.abs(scrollOffset + lastWindowHeight / 4) / lastWindowHeight) - 1;
 }
 
 getLinkListener = function (link) {
@@ -66,7 +69,7 @@ getLinkListener = function (link) {
         //temporarily deactivate the scroll listener
         window.onscroll = null;
 
-        //Do not do ordinary anchor action
+        //Do not allow default anchor action
         e.preventDefault();
 
         scrollTo(targetElement, function () {
@@ -80,20 +83,28 @@ getLinkListener = function (link) {
     };
 }
 
+function setBackgroundSize() {
+    background.style.height = lastWindowHeight * (1 + (1 - parallaxConstant) * numberOfSections) + "px";
+    isResizing = false;
+}
+
 window.onload = function () {
     var i, link;
 
     icon = document.querySelector(".iconholder");
     header = document.querySelector(".header");
     sectionLinks = header.querySelectorAll("a");
+    numberOfSections = sectionLinks.length;
     background = document.querySelector(".background");
     shouldParallax = background.classList.contains("parallax");
+    setBackgroundSize();
 
-    for (i = 0; i < sectionLinks.length; i++) {
+    for (i = 0; i < numberOfSections; i++) {
         link = sectionLinks[i];
         link.onclick = getLinkListener(link);
     }
 
     window.onscroll = scrollHandler;
+    window.onresize = resizeHandler;
 };
 
