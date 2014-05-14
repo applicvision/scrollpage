@@ -6,7 +6,11 @@ var gulp = require("gulp"),
     jade = require("gulp-jade"),
     embedlr = require("gulp-embedlr"),
     source = require("vinyl-source-stream"),
-    notify = require("gulp-notify");
+    notify = require("gulp-notify"),
+    streamify = require("gulp-streamify"),
+    uglify = require("gulp-uglify");
+    minifyCSS = require("gulp-minify-css");
+    concat = require("gulp-concat");
 
 var pageOptions = require("./mypage.json");
 
