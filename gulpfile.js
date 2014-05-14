@@ -6,53 +6,46 @@ var gulp = require("gulp"),
     jade = require("gulp-jade"),
     embedlr = require("gulp-embedlr"),
     source = require("vinyl-source-stream"),
-    notify = require("gulp-notify"),
     streamify = require("gulp-streamify"),
-    uglify = require("gulp-uglify");
-    minifyCSS = require("gulp-minify-css");
-    concat = require("gulp-concat");
+    uglify = require("gulp-uglify"),
+    minifyCSS = require("gulp-minify-css"),
+    concat = require("gulp-concat"),
+    errorhandler = require("./gulp/errorhandler");
 
 var pageOptions = require("./mypage.json");
-
-function getErrorHandler(title) {
-    return notify.onError({
-        message: "<%= error.message %>",
-        title: "ERROR: " + title
-    });
-}
 
 gulp.task("browserify", function () {
     browserify("./javascript/index.js")
         .bundle({debug: true})
-        .on("error", getErrorHandler("browserify"))
+        .on("error", errorhandler("browserify"))
         .pipe(source("bundle.js"))
         .pipe(gulp.dest("./dev/"));
 });
 
 gulp.task("browserify-dist", function () {
-    browserify("./javascript/index.js")
+    return browserify("./javascript/index.js")
         .bundle()
-        .on("error", getErrorHandler("browserify"))
+        .on("error", errorhandler("browserify"))
         .pipe(source("bundle.min.js"))
         .pipe(streamify(uglify()))
         .pipe(gulp.dest("./dist/"));
 });
 
 //TODO: Maybe consolidate all dist tasks, and embed streams in jade template, instead of writing files.
-gulp.task("jade-dist", function () {
+gulp.task("dist", ["browserify-dist", "minify-css"], function () {
     var locals = pageOptions;
     locals.dist = true;
     gulp.src("templates/**/*.jade")
         .pipe(jade({
             locals: locals
         }))
-        .on("error", getErrorHandler("jade"))
+        .on("error", errorhandler("jade"))
         .pipe(concat("index.dist.html"))
         .pipe(gulp.dest("./"));
 });
 
 gulp.task('minify-css', function() {
-  gulp.src('./css/*.css')
+  return gulp.src('./css/*.css')
     .pipe(minifyCSS())
     .pipe(concat("all.min.css"))
     .pipe(gulp.dest('./dist/'))
@@ -63,7 +56,7 @@ gulp.task("jade", function () {
         .pipe(jade({
             locals: pageOptions
         }))
-        .on("error", getErrorHandler("jade"))
+        .on("error", errorhandler("jade"))
         .pipe(embedlr())
         .pipe(gulp.dest("./"));
 });
@@ -79,4 +72,3 @@ gulp.task("watch", function () {
 });
 
 gulp.task("default", ["browserify", "jade", "watch"]);
-gulp.task("dist", ["browserify-dist", "minify-css", "jade-dist"])
