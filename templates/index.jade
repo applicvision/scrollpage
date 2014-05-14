@@ -1,27 +1,35 @@
 doctype html
+
+- var imgPath = "images/"
+
 html(lang="en")
   head
     title= name
-    link(href="layout.css", rel="stylesheet")
-    link(href="style.css", rel="stylesheet")
-    style
-      //- include ../layout.css
-      //- include ../style.css
+    if dist
+      style
+        include ../dist/all.min.css
+    else
+      link(href="css/layout.css", rel="stylesheet")
+      link(href="css/style.css", rel="stylesheet")
   body
-    div(class=options.parallax? "background parallax": "background")
+    - var backgroundStyle = "background-image: url(" + imgPath + background + ")"
+    div.background(class=options.parallax && "parallax", style=backgroundStyle)
     div.header
-      img.icon(src=icon)
+      img.icon(src=imgPath + icon)
       each section in sections
         a(href="#" + section.title.toLowerCase())
           =section.title
     section.first.flexcenter
-      .section-image: img.image(src=image)
+      .section-image: img.image(src=imgPath + image)
       .description=name + " " + description
-      //- .downarrow v
+      //- .downarrow: span v
     each aSection in sections
       section.content(id=aSection.title.toLowerCase())
           div(class="flexcenter " + (aSection.className || ""))
-            .section-image: img(src=aSection.image)
+            .section-image: img(src=imgPath + aSection.image)
             .section-text=aSection.text
-    script(src="bundle.js")
-      //- include ../out/bundle.js
+    if dist
+      script
+        include ../dist/bundle.min.js
+    else
+      script(src="dev/bundle.js")

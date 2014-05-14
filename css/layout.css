@@ -11,7 +11,6 @@ html, body {
 }
 
 body {
-    background-color: black;
     font-family: arial;
 }
 
@@ -57,6 +56,8 @@ section .section-image img{
     display: -webkit-flex;
     display: -moz-flex;
     display: flex;
+    -webkit-align-items: center;
+    align-items: center;
 }
 
 .header.show {
@@ -75,12 +76,19 @@ section .section-image img{
     line-height: 60px;
 }
 
+/*Prepare for some footer*/
+.footer {
+    height: 100px;
+}
+
 .flexcenter {
     display: -webkit-flex;
     display: -moz-flex;
     display: flex;
     -webkit-align-items: center;
+    -moz-align-items: center;
     align-items: center;
+    -moz-justify-content: center;
     -webkit-justify-content: center;
     justify-content: center;
 }
@@ -89,17 +97,47 @@ section .section-image img{
 /*This is for showing an animated scroll down indicator*/
 
 .downarrow {
-  animation-duration: 2s;
-  animation-name: blink;
-  animation-iteration-count: infinite;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    height: 80px;
+    font-size: 60px;
+    font-family: helvetica neue;
+    font-weight: lighter;
 }
 
-@keyframes blink {
-  from {
-    opacity: 0; 
-  }
+.downarrow span {
+    -webkit-animation: rainbow 5s ease 0s infinite alternate;
+    animation: rainbow 8s ease 0s infinite;
+}
 
-  to {
-    opactiy: 100%;
-  }
+/*TODO: If used, move these animation definitions to separate file */
+@keyframes blink {
+    from {    
+        opacity: 0;
+    }
+    to {
+        opactiy: 100%;
+    }
+
+}
+
+@-webkit-keyframes rainbow {
+    0% {
+        color: red; 
+    }
+    25% {
+        color: orange;
+    }
+    50% {
+        color: yellow;
+    }
+    75% {
+        color: green;
+    }
+    100% {
+        color: blue;
+    }
 }

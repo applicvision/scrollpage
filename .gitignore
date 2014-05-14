@@ -1,3 +1,5 @@
 node_modules
-out/*.js
-out/*.html
+dev/
+dist/
+index.html
+index.dist.html
