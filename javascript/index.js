@@ -1,6 +1,7 @@
+"use strict";
 var requestAnimationFrame = require("./requestAnimationFrame");
 var translateY = require("./translateY3d");
-var scrollTo = require("./scrollTo");
+var scrollToElement = require("./scrollToElement");
 
 var lastScrollY = 0;
 var lastWindowHeight = window.innerHeight;
@@ -10,15 +11,14 @@ var isResizing = false;
 var header;
 var sectionLinks;
 var numberOfSections;
-var lastSectionLink;
-var icon;
 var background;
+var downArrow;
 var shouldParallax;
 var parallaxConstant = 0.5;
 
 
 
-function scrollHandler () {
+function scrollHandler() {
     lastScrollY = window.scrollY;
     if (!isUpdating) {
         requestAnimationFrame(update);
@@ -26,7 +26,7 @@ function scrollHandler () {
     }
 }
 
-function resizeHandler () {
+function resizeHandler() {
     var windowHeight = window.innerHeight;
     if (!isResizing && (windowHeight !== lastWindowHeight)) {
         lastWindowHeight = windowHeight;
@@ -35,7 +35,7 @@ function resizeHandler () {
     }
 }
 
-function update () {
+function update() {
     var currentSection = getCurrentSection(lastScrollY);
 
     if (currentSection !== lastSection) {
@@ -55,7 +55,11 @@ function update () {
     if (shouldParallax) {
         translateY(background, parallaxConstant * lastScrollY);
     }
-    
+    var downArrowOpacity = Math.pow((Math.max(0, lastWindowHeight - lastScrollY)) / lastWindowHeight, 2);
+    if (0 <= downArrowOpacity && downArrowOpacity <= 1) {
+        downArrow.style.opacity = downArrowOpacity;
+        translateY(downArrow, (1 - downArrowOpacity) * 40);
+    }
     isUpdating = false;
 }
 
@@ -63,7 +67,7 @@ function getCurrentSection(scrollOffset) {
     return Math.floor(Math.abs(scrollOffset + lastWindowHeight / 4) / lastWindowHeight) - 1;
 }
 
-getLinkListener = function (link) {
+function getLinkListener(link) {
     var targetElement = document.querySelector(link.hash);
     return function (e) {
         //temporarily deactivate the scroll listener
@@ -72,13 +76,16 @@ getLinkListener = function (link) {
         //Do not allow default anchor action
         e.preventDefault();
 
-        scrollTo(targetElement, function () {
-            //update the scroll position and update state
-            lastScrollY = window.scrollY;
-            update();
-
-            //Reactivate scroll listener
-            window.onscroll = scrollHandler;
+        scrollToElement({
+            element: targetElement,
+            step: function (scrollPosition) {
+                lastScrollY = scrollPosition;
+                update();
+            },
+            complete: function () {
+                //Reactivate scroll listener
+                window.onscroll = scrollHandler;
+            }
         });
     };
 }
@@ -91,11 +98,11 @@ function setBackgroundSize() {
 window.onload = function () {
     var i, link;
 
-    icon = document.querySelector(".iconholder");
     header = document.querySelector(".header");
     sectionLinks = header.querySelectorAll("a");
     numberOfSections = sectionLinks.length;
     background = document.querySelector(".background");
+    downArrow = document.querySelector(".downarrow span");
     shouldParallax = background.classList.contains("parallax");
     setBackgroundSize();
 
@@ -103,8 +110,9 @@ window.onload = function () {
         link = sectionLinks[i];
         link.onclick = getLinkListener(link);
     }
+    //clicking downarrow is the same as clicking the first section link.
+    downArrow.onclick = getLinkListener(sectionLinks[0]);
 
     window.onscroll = scrollHandler;
     window.onresize = resizeHandler;
 };
-
