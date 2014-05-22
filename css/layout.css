@@ -24,7 +24,7 @@ section.first {
 }
 
 section.content {
-    padding: 50px 0;
+    padding: 70px 0;
     box-sizing: border-box;
     font-size: 2em;
 }
@@ -104,18 +104,18 @@ section .section-image img{
     text-align: center;
     height: 80px;
     font-size: 60px;
-    font-family: helvetica neue;
+    font-family: helvetica;
     font-weight: lighter;
 }
 
 .downarrow span {
-    -webkit-animation: rainbow 5s ease 0s infinite alternate;
-    animation: rainbow 8s ease 0s infinite;
+    position: absolute;
+    cursor: pointer;
 }
 
 /*TODO: If used, move these animation definitions to separate file */
 @keyframes blink {
-    from {    
+    from {
         opacity: 0;
     }
     to {
@@ -126,7 +126,7 @@ section .section-image img{
 
 @-webkit-keyframes rainbow {
     0% {
-        color: red; 
+        color: red;
     }
     25% {
         color: orange;
