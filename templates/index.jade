@@ -22,7 +22,7 @@ html(lang="en")
     section.first.flexcenter
       .section-image: img.image(src=imgPath + image)
       .description=name + " " + description
-      //- .downarrow: span v
+      .downarrow: span v
     each aSection in sections
       section.content(id=aSection.title.toLowerCase())
           div(class="flexcenter " + (aSection.className || ""))
