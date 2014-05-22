@@ -1,3 +1,4 @@
+"use strict";
 //TODO: Split the components up into some modules
 
 var gulp = require("gulp"),
@@ -44,11 +45,11 @@ gulp.task("dist", ["browserify-dist", "minify-css"], function () {
         .pipe(gulp.dest("./"));
 });
 
-gulp.task('minify-css', function() {
-  return gulp.src('./css/*.css')
-    .pipe(minifyCSS())
-    .pipe(concat("all.min.css"))
-    .pipe(gulp.dest('./dist/'))
+gulp.task("minify-css", function () {
+    return gulp.src("./css/*.css")
+        .pipe(minifyCSS())
+        .pipe(concat("all.min.css"))
+        .pipe(gulp.dest("./dist/"));
 });
 
 gulp.task("jade", function () {
@@ -66,7 +67,7 @@ gulp.task("watch", function () {
 
     //TODO: Fix so that jade task is run whenever json file changes
     gulp.watch("templates/**/*.jade", ["jade"]);
-    gulp.watch(["index.html", "dev/**", "css/**", "images/**"]).on("change", function (file) {
+    gulp.watch(["index.html", "dev/bundle.js", "css/**", "images/**"]).on("change", function (file) {
         livereload().changed(file.path);
     });
 });
