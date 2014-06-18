@@ -1,3 +1,4 @@
+/*globals backgrounds */
 "use strict";
 var requestAnimationFrame = require("./requestAnimationFrame");
 var translateY = require("./translateY3d");
@@ -56,9 +57,9 @@ function update() {
         translateY(background, parallaxConstant * lastScrollY);
     }
     var downArrowOpacity = Math.pow((Math.max(0, lastWindowHeight - lastScrollY)) / lastWindowHeight, 2);
-    if (0 <= downArrowOpacity && downArrowOpacity <= 1) {
+    if (0 <= downArrowOpacity && downArrowOpacity <= 0.82) {
         downArrow.style.opacity = downArrowOpacity;
-        translateY(downArrow, (1 - downArrowOpacity) * 40);
+        // translateY(downArrow, (1 - downArrowOpacity) * 40);
     }
     isUpdating = false;
 }
@@ -104,6 +105,10 @@ window.onload = function () {
     background = document.querySelector(".background");
     downArrow = document.querySelector(".downarrow span");
     shouldParallax = background.classList.contains("parallax");
+    //If options specify multiple backgrounds, let's pick one randomly.
+    if (backgrounds) {
+        background.style.backgroundImage = "url(" + backgrounds[Math.floor(Math.random() * backgrounds.length)] + ")";    
+    }
     setBackgroundSize();
 
     for (i = 0; i < numberOfSections; i++) {

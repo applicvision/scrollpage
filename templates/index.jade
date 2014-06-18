@@ -2,6 +2,20 @@ doctype html
 
 - var imgPath = "images/"
 
+//- These define a section. It is used further down.
+mixin sectioncontent(aSection)
+  div(class="content-holder flexcenter " + (aSection.className || ""))
+    .section-image: img(src=imgPath + aSection.image)
+    .section-text=aSection.text
+
+mixin pagesection(aSection)
+  section.content(id=aSection.title.toLowerCase())
+    if aSection.link
+      a(href=aSection.link)
+        +sectioncontent(aSection)
+    else
+      +sectioncontent(aSection)
+
 html(lang="en")
   head
     title= name
@@ -12,8 +26,12 @@ html(lang="en")
       link(href="css/layout.css", rel="stylesheet")
       link(href="css/style.css", rel="stylesheet")
   body
-    - var backgroundStyle = "background-image: url(" + imgPath + background + ")"
-    div.background(class=options.parallax && "parallax", style=backgroundStyle)
+    if background
+      - var backgroundStyle = "background-image: url(" + imgPath + background + ")"
+      div.background(class=options.parallax && "parallax", style=backgroundStyle)
+    else
+      div.background(class=options.parallax && "parallax")
+
     div.header
       img.icon(src=imgPath + icon)
       each section in sections
@@ -24,10 +42,19 @@ html(lang="en")
       .description=name + " " + description
       .downarrow: span v
     each aSection in sections
-      section.content(id=aSection.title.toLowerCase())
-          div(class="flexcenter " + (aSection.className || ""))
-            .section-image: img(src=imgPath + aSection.image)
-            .section-text=aSection.text
+      +pagesection(aSection)
+    .footer.flexcenter
+      div!="&copy; " + copyright
+      div
+        script.
+          //- Dynamic injection to reduce spam.
+          document.write("#{contact.substring(0,4)}" + "#{contact.substring(4)}");
+      div.builtwith This page was built with 
+        a(href="https://github.com/applicvision/scrollpage") applicvision/scrollpage
+    //-TODO: Hopefully there is a better way...This passes backgrounds array to JS
+    if backgrounds
+      script.
+        var backgrounds = "#{backgrounds}".split(",").map(function (name) { return "#{imgPath}" + name });
     if dist
       script
         include ../dist/bundle.min.js
