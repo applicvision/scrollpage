@@ -25,6 +25,7 @@ html(lang="en")
     else
       link(href="css/layout.css", rel="stylesheet")
       link(href="css/style.css", rel="stylesheet")
+    meta(name="viewport", content="width=740, user-scalable=no")
   body
     if background
       - var backgroundStyle = "background-image: url(" + imgPath + background + ")"
@@ -40,7 +41,6 @@ html(lang="en")
     section.first.flexcenter
       .section-image: img.image(src=imgPath + image)
       .description=name + " " + description
-      .downarrow: span v
       .downarrow: img(src=imgPath + "downchevron")
     each aSection in sections
       +pagesection(aSection)

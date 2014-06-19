@@ -19,24 +19,12 @@ section {
     height: 100%;
 }
 
-section.first {
-    font-size: 2em;
-}
-
 section.content {
-    padding: 70px 0;
     box-sizing: border-box;
-    font-size: 2em;
 }
 
 section.content div.content-holder {
     height: 100%;
-}
-
-section.content div.content-holder > div {
-    width: 50%;
-    padding: 0 10px;
-    max-width: 550px;
 }
 
 section .section-image {
@@ -49,7 +37,9 @@ section .section-image img{
 }
 
 section.first .section-image img {
-    max-height: 70%;
+    max-height: 75%;
+    max-width: 90%;
+    margin-top: 10px;
 }
 section a {
     text-decoration: none;
@@ -88,7 +78,6 @@ section a {
 }
 
 .footer {
-    height: 50px;
     position: relative;
 }
 
@@ -98,9 +87,9 @@ section a {
 
 .footer .builtwith {
     position: absolute;
-    font-size: 12px;
+    font-size: 0.8em;
     right: 0;
-    bottom: 6px;
+    bottom: 4px;
 }
 
 .flexcenter {
@@ -114,7 +103,6 @@ section a {
     -webkit-justify-content: center;
     justify-content: center;
 }
-
 
 /*This is for showing an animated scroll down indicator*/
 
@@ -130,6 +118,58 @@ section a {
 .downarrow img {
     width: 50px;
     cursor: pointer;
+}
+
+
+@media screen and (orientation:landscape) {
+
+    section.content div.content-holder > div {
+        width: 50%;
+        /*padding: 0 0;*/
+        max-width: 550px;
+    }
+    section.content .section-text {
+        padding: 0 20px;
+    }
+    section.content {
+        padding: 50px 0;
+        font-size: 1.7em;
+    }
+    .footer {
+        height: 60px;
+    }
+
+}
+
+@media screen and (orientation:portrait) {
+    section .flexcenter {
+        flex-direction: column;
+        -webkit-flex-direction: column;
+    }
+    section.content .section-image {
+        max-height: 80%;
+        -webkit-flex: 1;
+        flex: 1;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    section.content div.content-holder > div {
+        padding: 10px 30px;
+    }
+
+    section.content {
+        padding: 50px 0;
+        font-size: 1.7em;
+
+    }
+    .footer {
+        height: 90px;
+        font-size: 1.2em;
+    }
+
+    .header a {
+        font-size: 1.6em
+    }
 }
 
 /*TODO: If used, move these animation definitions to separate file */
