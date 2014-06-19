@@ -25,6 +25,10 @@ html(lang="en")
     else
       link(href="css/layout.css", rel="stylesheet")
       link(href="css/style.css", rel="stylesheet")
+    meta(name="description", content=description)
+    meta(name="keywords", content=keywords)
+    if iosAppID
+      meta(name="apple-itunes-app", content= "app-id=" + iosAppID)
   body
     div.background(class=options.parallax && "parallax")
     div.header
