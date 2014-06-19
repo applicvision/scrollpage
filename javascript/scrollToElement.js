@@ -12,7 +12,12 @@ module.exports = function scrollTo(argument) {
         scrollAmount,
         duration;
 
-    targetPosition = elemOrID.offsetTop || document.querySelector("#elemOrID").offsetTop;
+    //A bit sneaky, but "top" is treated as a special case.
+    if (elemOrID === "top") {
+        targetPosition = 0;
+    } else {
+        targetPosition = elemOrID.offsetTop || document.querySelector("#elemOrID").offsetTop;    
+    }
     scrollAmount = targetPosition - startPosition;
     if (scrollAmount === 0) {
         callback();

@@ -15,6 +15,7 @@ var numberOfSections;
 var background;
 var downArrow;
 var shouldParallax;
+var isMobile;
 var parallaxConstant = 0.5;
 
 
@@ -57,7 +58,7 @@ function update() {
         translateY(background, parallaxConstant * lastScrollY);
     }
     var downArrowOpacity = Math.pow((Math.max(0, lastWindowHeight - lastScrollY)) / lastWindowHeight, 2);
-    if (0 <= downArrowOpacity && downArrowOpacity <= 0.82) {
+    if (!isMobile && 0 <= downArrowOpacity && downArrowOpacity <= 0.82) {
         downArrow.style.opacity = downArrowOpacity;
         // translateY(downArrow, (1 - downArrowOpacity) * 40);
     }
@@ -71,24 +72,30 @@ function getCurrentSection(scrollOffset) {
 function getLinkListener(link) {
     var targetElement = document.querySelector(link.hash);
     return function (e) {
-        //temporarily deactivate the scroll listener
-        window.onscroll = null;
 
         //Do not allow default anchor action
         e.preventDefault();
 
-        scrollToElement({
-            element: targetElement,
-            step: function (scrollPosition) {
-                lastScrollY = scrollPosition;
-                update();
-            },
-            complete: function () {
-                //Reactivate scroll listener
-                window.onscroll = scrollHandler;
-            }
-        });
+        scrollPageToSection(targetElement);
     };
+}
+
+function scrollPageToSection(section) {
+
+    //temporarily deactivate the scroll listener
+    window.onscroll = null;
+
+    scrollToElement({
+        element: section,
+        step: function (scrollPosition) {
+            lastScrollY = scrollPosition;
+            update();
+        },
+        complete: function () {
+            //Reactivate scroll listener
+            window.onscroll = scrollHandler;
+        }
+    });
 }
 
 function setBackgroundSize() {
@@ -97,14 +104,21 @@ function setBackgroundSize() {
 }
 
 window.onload = function () {
-    var i, link;
+    var i, link, headerIcon;
 
     header = document.querySelector(".header");
     sectionLinks = header.querySelectorAll("a");
+    headerIcon = header.querySelector("img.icon");
     numberOfSections = sectionLinks.length;
     background = document.querySelector(".background");
-    downArrow = document.querySelector(".downarrow span");
+    downArrow = document.querySelector(".downarrow img");
     shouldParallax = background.classList.contains("parallax");
+    //Let's not do parallax on mobile.
+    isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if(isMobile) {
+        shouldParallax = false;
+        background.style.position = "fixed";
+    }
     //If options specify multiple backgrounds, let's pick one randomly.
     if (backgrounds) {
         background.style.backgroundImage = "url(" + backgrounds[Math.floor(Math.random() * backgrounds.length)] + ")";    
@@ -115,6 +129,7 @@ window.onload = function () {
         link = sectionLinks[i];
         link.onclick = getLinkListener(link);
     }
+    headerIcon.onclick = scrollPageToSection.bind(this, "top");
     //clicking downarrow is the same as clicking the first section link.
     downArrow.onclick = getLinkListener(sectionLinks[0]);
 
