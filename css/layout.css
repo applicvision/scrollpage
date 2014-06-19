@@ -125,14 +125,10 @@ section a {
     left: 0;
     opacity: 0.82;
     text-align: center;
-    height: 65px;
-    font-size: 45px;
-    font-family: helvetica;
-    font-weight: lighter;
 }
 
-.downarrow span {
-    position: absolute;
+.downarrow img {
+    width: 50px;
     cursor: pointer;
 }
 

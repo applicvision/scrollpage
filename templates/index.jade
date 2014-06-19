@@ -41,6 +41,7 @@ html(lang="en")
       .section-image: img.image(src=imgPath + image)
       .description=name + " " + description
       .downarrow: span v
+      .downarrow: img(src=imgPath + "downchevron")
     each aSection in sections
       +pagesection(aSection)
     .footer.flexcenter
