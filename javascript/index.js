@@ -58,7 +58,7 @@ function update() {
         translateY(background, parallaxConstant * lastScrollY);
     }
     var downArrowOpacity = Math.pow((Math.max(0, lastWindowHeight - lastScrollY)) / lastWindowHeight, 2);
-    if (!isMobile && 0 <= downArrowOpacity && downArrowOpacity <= 0.82) {
+    if (0 <= downArrowOpacity && downArrowOpacity <= 0.82) {
         downArrow.style.opacity = downArrowOpacity;
         // translateY(downArrow, (1 - downArrowOpacity) * 40);
     }
@@ -85,13 +85,14 @@ function scrollPageToSection(section) {
     //temporarily deactivate the scroll listener
     window.onscroll = null;
 
+    //Do not pass step and complete handlers if we are in mobile environment.
     scrollToElement({
         element: section,
-        step: function (scrollPosition) {
+        step: !isMobile && function (scrollPosition) {
             lastScrollY = scrollPosition;
             update();
         },
-        complete: function () {
+        complete: !isMobile && function () {
             //Reactivate scroll listener
             window.onscroll = scrollHandler;
         }
@@ -113,17 +114,12 @@ window.onload = function () {
     background = document.querySelector(".background");
     downArrow = document.querySelector(".downarrow img");
     shouldParallax = background.classList.contains("parallax");
-    //Let's not do parallax on mobile.
-    isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    if(isMobile) {
-        shouldParallax = false;
-        background.style.position = "fixed";
-    }
+    
     //If options specify multiple backgrounds, let's pick one randomly.
     if (backgrounds) {
         background.style.backgroundImage = "url(" + backgrounds[Math.floor(Math.random() * backgrounds.length)] + ")";    
     }
-    setBackgroundSize();
+    
 
     for (i = 0; i < numberOfSections; i++) {
         link = sectionLinks[i];
@@ -133,6 +129,15 @@ window.onload = function () {
     //clicking downarrow is the same as clicking the first section link.
     downArrow.onclick = getLinkListener(sectionLinks[0]);
 
-    window.onscroll = scrollHandler;
+    isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    //Let's not handle the scroll on mobile
+    if(isMobile) {
+        background.style.position = "fixed";
+    } else {
+        window.onscroll = scrollHandler;    
+    }
+    
+    setBackgroundSize();
+
     window.onresize = resizeHandler;
 };

@@ -20,7 +20,9 @@ module.exports = function scrollTo(argument) {
     }
     scrollAmount = targetPosition - startPosition;
     if (scrollAmount === 0) {
-        callback();
+        if (callback) {
+            callback();
+        }
         return;
     }
 
@@ -36,13 +38,17 @@ module.exports = function scrollTo(argument) {
         }
         //break if the time has passed.
         if (timePassed > duration) {
-            callback();
+            if (callback) {
+                callback();
+            }
             return;
         }
         progress = (1 - Math.cos(timePassed * Math.PI / duration)) / 2;
         scrollPosition = startPosition + scrollAmount * progress;
         window.scroll(0, scrollPosition);
-        step(scrollPosition);
+        if (step) {
+            step(scrollPosition);
+        }
         requestAnimationFrame(scrollStep);
     }
 
