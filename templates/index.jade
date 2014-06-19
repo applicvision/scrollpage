@@ -25,7 +25,6 @@ html(lang="en")
     else
       link(href="css/layout.css", rel="stylesheet")
       link(href="css/style.css", rel="stylesheet")
-    meta(name="viewport", content="width=740, user-scalable=no")
   body
     if background
       - var backgroundStyle = "background-image: url(" + imgPath + background + ")"
@@ -39,9 +38,9 @@ html(lang="en")
         a(href="#" + section.title.toLowerCase())
           =section.title
     section.first.flexcenter
-      .section-image: img.image(src=imgPath + image)
-      .description=name + " " + description
-      .downarrow: img(src=imgPath + "downchevron")
+      img.image(src=imgPath + image)
+      //- .description=name + " " + description
+      .downarrow: img(src=imgPath + "downchevron.png")
     each aSection in sections
       +pagesection(aSection)
     .footer.flexcenter
