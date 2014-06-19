@@ -2,6 +2,8 @@
 //TODO: Split the components up into some modules
 
 var gulp = require("gulp"),
+    fs = require("fs"),
+    path = require("path"),
     livereload = require("gulp-livereload"),
     browserify = require("browserify"),
     jade = require("gulp-jade"),
@@ -34,7 +36,7 @@ gulp.task("browserify-dist", function () {
 
 //TODO: Maybe consolidate all dist tasks, and embed streams in jade template, instead of writing files.
 gulp.task("dist", ["browserify-dist", "minify-css"], function () {
-    var locals = pageOptions;
+    var locals = getPageOptions();
     locals.dist = true;
     gulp.src("templates/**/*.jade")
         .pipe(jade({
@@ -52,10 +54,21 @@ gulp.task("minify-css", function () {
         .pipe(gulp.dest("./dist/"));
 });
 
+function getPageOptions () {
+    var bgDir = pageOptions.backgroundsDirectory;
+    var bgDirContents = fs.readdirSync("./images/" + bgDir);
+    pageOptions.backgrounds = bgDirContents.filter(function (filename) {
+        return [".jpg", ".png", ".jpeg"].indexOf(path.extname(filename)) !== -1;
+    }).map(function (imgFile) {
+        return path.join(bgDir, imgFile);
+    });
+    return pageOptions;
+}
+
 gulp.task("jade", function () {
     gulp.src("templates/**/*.jade")
         .pipe(jade({
-            locals: pageOptions
+            locals: getPageOptions()
         }))
         .on("error", errorhandler("jade"))
         .pipe(embedlr())
@@ -72,6 +85,7 @@ gulp.task("watch", function () {
 
     //TODO: Fix so that jade task is run whenever json file changes
     gulp.watch("mypage.json", ["reloadoptions", "jade"]);
+    gulp.watch("images/" + pageOptions.backgroundsDirectory + "/*", ["jade"]);
     gulp.watch("templates/**/*.jade", ["jade"]);
     gulp.watch(["index.html", "dev/bundle.js", "css/**", "images/**"]).on("change", function (file) {
         livereload().changed(file.path);

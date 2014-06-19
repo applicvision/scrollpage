@@ -3,7 +3,7 @@
     "description": "Scrolling is sweet",
     "image": "icon.png",
     "icon": "icon.png",
-    "background": "background.jpg",
+    "backgroundsDirectory": "backgrounds",
     "sections": [
         {"image": "phone1.png", "text": "My app can do many things", "title": "Versatile", "className": "prima"},
         {"image": "phone2.png", "text": "Useful all the time", "title":"Useful"},

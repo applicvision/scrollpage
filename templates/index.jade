@@ -26,12 +26,7 @@ html(lang="en")
       link(href="css/layout.css", rel="stylesheet")
       link(href="css/style.css", rel="stylesheet")
   body
-    if background
-      - var backgroundStyle = "background-image: url(" + imgPath + background + ")"
-      div.background(class=options.parallax && "parallax", style=backgroundStyle)
-    else
-      div.background(class=options.parallax && "parallax")
-
+    div.background(class=options.parallax && "parallax")
     div.header
       img.icon(src=imgPath + icon)
       each section in sections
@@ -52,9 +47,8 @@ html(lang="en")
       div.builtwith This page was built with 
         a(href="https://github.com/applicvision/scrollpage") applicvision/scrollpage
     //-TODO: Hopefully there is a better way...This passes backgrounds array to JS
-    if backgrounds
-      script.
-        var backgrounds = "#{backgrounds}".split(",").map(function (name) { return "#{imgPath}" + name });
+    script.
+      var backgrounds = "#{backgrounds}".split(",").map(function (name) { return "#{imgPath}" + name });
     if dist
       script
         include ../dist/bundle.min.js
