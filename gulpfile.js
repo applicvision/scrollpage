@@ -62,10 +62,16 @@ gulp.task("jade", function () {
         .pipe(gulp.dest("./"));
 });
 
+gulp.task("reloadoptions", function () {
+    delete require.cache[require.resolve("./mypage.json")];
+    pageOptions = require("./mypage.json");
+});
+
 gulp.task("watch", function () {
     gulp.watch("javascript/**/*.js", ["browserify"]);
 
     //TODO: Fix so that jade task is run whenever json file changes
+    gulp.watch("mypage.json", ["reloadoptions", "jade"]);
     gulp.watch("templates/**/*.jade", ["jade"]);
     gulp.watch(["index.html", "dev/bundle.js", "css/**", "images/**"]).on("change", function (file) {
         livereload().changed(file.path);
