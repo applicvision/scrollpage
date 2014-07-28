@@ -42,6 +42,17 @@ section.first img {
     max-width: 90%;
     margin-top: 10px;
 }
+
+section.first .downloadbadges {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding-left: 20px;
+}
 section a {
     text-decoration: none;
 }
@@ -159,7 +170,7 @@ section a {
         padding: 0 20px;
     }
     section.content {
-        padding: 50px 0;
+        padding: 60px 0;
         font-size: 1.7em;
     }
     .footer {
@@ -182,7 +193,7 @@ section a {
     }
 
     section.content {
-        padding: 50px 0;
+        padding: 60px 0;
         font-size: 1.6em;
 
     }

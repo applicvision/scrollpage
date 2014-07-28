@@ -41,10 +41,18 @@ html(lang="en")
       div.social.flexrow
         each val, index in social
           a(href=val)
-            img(src="images/"+index+".png")
+            img(src="images/" + index + ".png")
     section.first.flexcenter
       img.image(src=imgPath + image)
       //- .description=name + " " + description
+      if appId
+        .downloadbadges
+          if appId.iOS
+            a(href="https://itunes.apple.com/app/id" + appId.iOS)
+              img(src="images/appstore.png")
+          if appId.android
+            a(href="https://play.google.com/store/apps/details?id=" + appId.android)
+              img(src="images/googleplay.png")
       .downarrow: img(src=imgPath + "downchevron.png")
     each aSection in sections
       +pagesection(aSection)

@@ -10,6 +10,10 @@
       "gplus": "https://plus.google.com/Company_ID",
       "instagram": "https://instagram.com/Company"
     },
+    "appId": {
+        "iOS": "123456789",
+        "android": "com.company.app"
+    },
     "sections": [
         {"image": "phone1.png", "text": "Description of the most important feature", "title": "Feature 1 A", "className": "prima"},
         {"image": "phone2.png", "text": "And here is another useful feature", "title":"Feature 2"},
