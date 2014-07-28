@@ -24,3 +24,8 @@ section.content > div {
     /*background-color: lightgray;*/
     font-weight: bold;
 }
+
+.footer {
+    color: #555;
+    background-color: white;
+}

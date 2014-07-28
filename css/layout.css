@@ -12,6 +12,7 @@ html, body {
 
 body {
     font-family: arial;
+    min-width: 500px;
 }
 
 section {
@@ -161,6 +162,7 @@ section a {
     }
     .footer {
         height: 90px;
+        font-size: 1.1em;
     }
 
     .header {

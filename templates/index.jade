@@ -46,8 +46,8 @@ html(lang="en")
     .footer.flexcenter
       div!="&copy; " + copyright
       div
+        //- Dynamic injection to reduce spam.
         script.
-          //- Dynamic injection to reduce spam.
           document.write("#{contact.substring(0,4)}" + "#{contact.substring(4)}");
       div.builtwith This page was built with 
         a(href="https://github.com/applicvision/scrollpage") applicvision/scrollpage
