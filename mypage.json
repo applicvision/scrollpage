@@ -4,12 +4,20 @@
     "image": "icon.png",
     "icon": "icon.png",
     "backgroundsDirectory": "backgrounds",
+    "social": {
+      "facebook": "https://www.facebook.com/Company",
+      "twitter": "https://twitter.com/Company",
+      "gplus": "https://plus.google.com/Company_ID",
+      "instagram": "https://instagram.com/Company"
+    },
     "sections": [
-        {"image": "phone1.png", "text": "My app can do many things", "title": "Versatile", "className": "prima"},
-        {"image": "phone2.png", "text": "Useful all the time", "title":"Useful"},
-        {"image": "phone3.png", "text": "You wont regret it..", "title":"Regretful"}
+        {"image": "phone1.png", "text": "Description of the most important feature", "title": "Feature 1 A", "className": "prima"},
+        {"image": "phone2.png", "text": "And here is another useful feature", "title":"Feature 2"},
+        {"image": "phone3.png", "text": "And a third one...", "title":"Feature 3"}
     ],
     "options": {
         "parallax": "false"
-    }
+    },
+    "contact": "mail@company.com",
+    "copyright": "2014 Company Inc."
 }

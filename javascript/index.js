@@ -9,7 +9,6 @@ var lastWindowHeight = window.innerHeight;
 var lastSection = -1;
 var isUpdating = false;
 var isResizing = false;
-var header;
 var sectionLinks;
 var numberOfSections;
 var background;
@@ -105,21 +104,20 @@ function setBackgroundSize() {
 }
 
 window.onload = function () {
-    var i, link, headerIcon;
+    var i, link, headerMenu, headerIcon;
 
-    header = document.querySelector(".header");
-    sectionLinks = header.querySelectorAll("a");
-    headerIcon = header.querySelector("img.icon");
+    headerMenu = document.querySelector(".header .menu");
+    sectionLinks = headerMenu.querySelectorAll("a");
+    headerIcon = headerMenu.querySelector("img.icon");
     numberOfSections = sectionLinks.length;
     background = document.querySelector(".background");
     downArrow = document.querySelector(".downarrow img");
     shouldParallax = background.classList.contains("parallax");
-    
+
     //If options specify multiple backgrounds, let's pick one randomly.
     if (backgrounds) {
-        background.style.backgroundImage = "url(" + backgrounds[Math.floor(Math.random() * backgrounds.length)] + ")";    
+        background.style.backgroundImage = "url(" + backgrounds[Math.floor(Math.random() * backgrounds.length)] + ")";
     }
-    
 
     for (i = 0; i < numberOfSections; i++) {
         link = sectionLinks[i];
@@ -134,9 +132,9 @@ window.onload = function () {
     if(isMobile) {
         background.style.position = "fixed";
     } else {
-        window.onscroll = scrollHandler;    
+        window.onscroll = scrollHandler;
     }
-    
+
     setBackgroundSize();
 
     window.onresize = resizeHandler;

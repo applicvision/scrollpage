@@ -54,9 +54,15 @@ section a {
     display: -webkit-flex;
     display: -moz-flex;
     display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    /*transition: -webkit-transform 0.5s;*/
+}
+
+.flexrow {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  height: 100%;
 }
 
 /*This would be nice, but causes some artifacts */
@@ -71,11 +77,31 @@ section a {
     margin: 0 10px;
 }
 
-.header a {
+.header .menu a {
     font-size: 1.3em;
     text-decoration: none;
     padding: 0 10px;
     line-height: 60px;
+}
+
+.header .social {
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-justify-content: flex-end;
+  -moz-justify-content: flex-end;
+  -ms-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+.header .social a {
+  height: 75%;
+  margin: 0 10px;
+}
+
+.header .social a img {
+  height: 100%;
 }
 
 .footer {

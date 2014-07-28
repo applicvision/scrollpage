@@ -9,7 +9,7 @@ mixin sectioncontent(aSection)
     .section-text=aSection.text
 
 mixin pagesection(aSection)
-  section.content(id=aSection.title.toLowerCase())
+  section.content(id=aSection.title.toLowerCase().replace(/[ ]/g, "_"))
     if aSection.link
       a(href=aSection.link)
         +sectioncontent(aSection)
@@ -33,10 +33,15 @@ html(lang="en")
   body
     div.background(class=options.parallax && "parallax")
     div.header
-      img.icon(src=imgPath + icon)
-      each section in sections
-        a(href="#" + section.title.toLowerCase())
-          =section.title
+      div.menu.flexrow
+        img.icon(src=imgPath + icon)
+        each section in sections
+          a(href="#" + section.title.toLowerCase().replace(/[ ]/g, "_"))
+            =section.title
+      div.social.flexrow
+        each val, index in social
+          a(href=val)
+            img(src="images/"+index+".png")
     section.first.flexcenter
       img.image(src=imgPath + image)
       //- .description=name + " " + description
@@ -49,7 +54,7 @@ html(lang="en")
         //- Dynamic injection to reduce spam.
         script.
           document.write("#{contact.substring(0,4)}" + "#{contact.substring(4)}");
-      div.builtwith This page was built with 
+      div.builtwith= 'This page was built with '
         a(href="https://github.com/applicvision/scrollpage") applicvision/scrollpage
     //-TODO: Hopefully there is a better way...This passes backgrounds array to JS
     script.
