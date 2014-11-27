@@ -5,7 +5,7 @@ doctype html
 //- These define a section. It is used further down.
 mixin sectioncontent(aSection)
   div(class="content-holder flexcenter " + (aSection.className || ""))
-    .section-image: img(src=imgPath + aSection.image)
+    .section-image(style=style="background-image:url("+ (imgPath + aSection.image) + ")")
     .section-text=aSection.text
 
 mixin pagesection(aSection)
