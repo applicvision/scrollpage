@@ -18,9 +18,6 @@ function findPropertyName (elem, property) {
 
 module.exports = function translateY3d(elem, amount) {
     var styleString = "translateY(" + amount + "px)";
-    // elem.style.top = amount + "px";
-    // elem.style.translateY
-    // return;
     if (propertyName || findPropertyName(elem, "transform")) {
         elem.style[propertyName] = styleString;
     } else {
