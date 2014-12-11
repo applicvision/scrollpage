@@ -1,7 +1,7 @@
 /*globals backgrounds */
 "use strict";
 var requestAnimationFrame = require("./requestAnimationFrame");
-var translateY = require("./translateY3d");
+var translateY = require("./translateY");
 var scrollToElement = require("./scrollToElement");
 
 var lastScrollY = 0;
