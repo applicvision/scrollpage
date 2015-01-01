@@ -43,7 +43,10 @@ html(lang="en")
           a(href=val)
             img(src="images/" + index + ".png")
     section.first.flexcenter
-      img.image(src=imgPath + image)
+      if image
+        img.image(src=imgPath + image)
+      if youtubeId
+        iframe(width="640" height="360" src="http://www.youtube.com/embed/" + youtubeId frameborder="0" allowfullscreen=true)
       //- .description=name + " " + description
       if appId
         .downloadbadges
